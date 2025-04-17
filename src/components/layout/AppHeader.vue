@@ -1,0 +1,215 @@
+<template>
+  <header
+    class="header"
+    :class="{ 'menu-open': isMenuOpen, 'header-blue': isHeaderBlue }"
+  >
+    <div class="container">
+      <router-link to="/" class="header__logo">
+        Landing
+      </router-link>
+
+      <div class="header__menu">
+        <router-link to="/about">About</router-link>
+        <router-link to="/technology">Technology</router-link>
+        <router-link to="/request" class="btn btn-primary">
+          Request a demo
+        </router-link>
+      </div>
+
+      <button class="btn-toggle" @click="toggleMenu()">
+        <span class="btn-toggle-icon"></span>
+      </button>
+    </div>
+  </header>
+</template>
+
+<script>
+import Logo from '@/images/logo.svg';
+
+export default {
+  name: 'AppHeader',
+  components: {
+    Logo
+  },
+  data: () => ({
+    isMenuOpen: false,
+    isHeaderBlue: true
+  }),
+  watch: {
+    $route(to, from) {
+      this.isMenuOpen = false;
+      if (to.name === 'Technology') {
+        this.isHeaderBlue = window.top.scrollY > 100;
+        window.addEventListener('scroll', this.onScroll);
+      } else if (from.name === 'Technology') {
+        this.isHeaderBlue = true;
+        window.removeEventListener('scroll', this.onScroll);
+      }
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    onScroll() {
+      this.isHeaderBlue = window.top.scrollY > 50;
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+@import 'src/scss/utils/__utils';
+
+.header {
+  padding: 16px 0;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  &__menu {
+    display: flex;
+    align-items: center;
+
+    a {
+      margin-right: 24px;
+      color: #fff;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 700;
+      position: relative;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        border-radius: 2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        bottom: -8px;
+        background-color: $primary;
+        opacity: 0;
+      }
+
+      @include hover {
+        color: $primary;
+        text-decoration: none;
+      }
+
+      &:not(.btn).router-link-active {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &-blue {
+    background-color: $secondary;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-toggle {
+    background-color: transparent;
+    transition: $transition;
+    padding: 5px;
+    cursor: pointer;
+    border: 0;
+
+    &:focus {
+      box-shadow: none !important;
+      outline: none;
+    }
+
+    &-icon {
+      background: none;
+      display: block;
+      transition: $transition;
+      color: #fff;
+      width: 24px;
+      height: 16px;
+      border: {
+        width: 2px 0;
+        color: currentColor transparent;
+        style: solid;
+      }
+      position: relative;
+
+      &:before,
+      &:after {
+        transition: $transition;
+        position: absolute;
+        content: '';
+        top: 5px;
+        height: 2px;
+        background-color: currentColor;
+        left: 0;
+        right: 0;
+        transform-origin: center;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .btn-toggle {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    &__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      background-color: $secondary;
+      padding: 20px 16px 50px;
+      transition: $transition;
+      opacity: 0;
+      pointer-events: none;
+
+      a {
+        margin: 0 0 32px;
+      }
+    }
+
+    &__logo {
+      img {
+        height: 32px;
+      }
+    }
+
+    &.menu-open {
+      background-color: $secondary;
+
+      .btn-toggle-icon {
+        border-color: transparent;
+
+        &:before {
+          transform: rotate(45deg);
+        }
+
+        &:after {
+          transform: rotate(-45deg);
+        }
+      }
+
+      .header__menu {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+}
+</style>

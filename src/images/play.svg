@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-148.000000, -1201.000000)">
+            <g id="Banner" transform="translate(0.000000, 1116.000000)">
+                <g id="Vid">
+                    <g id="Play" transform="translate(148.000000, 85.000000)">
+                        <circle id="Oval" fill="#343439" opacity="0.7" cx="40" cy="40" r="40"></circle>
+                        <path d="M32.2222222,52.7029353 L32.2222222,28.4081759 C32.2222222,26.9851971 33.8793399,26.1522339 35.042848,27.0199039 L51.5082513,39.1672836 C52.4602125,39.8614196 52.4602125,41.2496915 51.5082513,41.9438275 L35.042848,54.0912072 C33.8793399,54.9588772 32.2222222,54.125914 32.2222222,52.7029353 Z" id="Path" fill="currentColor"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
